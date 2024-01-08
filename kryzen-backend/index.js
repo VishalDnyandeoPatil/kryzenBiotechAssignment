@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const port = process.env.port;
-const {connection}= require('./config/db')
+const {connection}= require('./config/db');
+const{userRoute}
 
 app.get('/', (req, res) => {
   res.send('Hello from Kryzen Backend!');

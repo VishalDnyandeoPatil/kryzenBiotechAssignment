@@ -5,6 +5,7 @@ const port = process.env.port;
 const {connection}= require('./config/db');
 const{userRoutes}= require('./routes/userRoute')
 const cors= require('cors');
+const formDataRoutes= require('./routes/formData')
 
 
 app.use(cors());
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users',userRoutes);
+app.use('/api/form', formDataRoutes);
 
 
 app.listen(port, async() => {

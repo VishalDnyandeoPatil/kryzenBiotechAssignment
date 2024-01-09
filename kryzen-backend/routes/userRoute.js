@@ -3,8 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 const { User } = require('../model/userModel');
-const {UserForm}= require('../model/FormData')
-const { authentication } = require('../middelware/authentication');
+const { authentication } = require('../middleware/auth');
 
 const userRoutes = express.Router();
 
@@ -48,29 +47,6 @@ userRoutes.post('/login', async (req, res) => {
         res.status(200).json({ token });
     } catch (error) {
         console.error('Error logging in:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
-
-// User submit form route
-userRoutes.post('/submit-form', async (req, res) => {
-    try {
-        const { userId, name, age, address, photo } = req.body;
-
-        const newUser = new UserForm({
-            userId,
-            name,
-            age,
-            address,
-            photo,
-          });
-
-          await newUser.save();
-
-        res.status(201).json({ message: 'Form submitted successfully', user: newUser });
-  
-    } catch (error) {
-        console.error('Error submitting form:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });

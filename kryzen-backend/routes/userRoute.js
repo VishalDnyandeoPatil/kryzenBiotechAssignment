@@ -10,9 +10,9 @@ const userRoutes = express.Router();
 // User registration route. 
 userRoutes.post('/register', async (req, res) => {
     try {
-        const { username, password, name, age, address } = req.body;
+        const { username, password} = req.body;
 
-        if (!username || !password || !name || !age || !address) {
+        if (!username || !password ) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 

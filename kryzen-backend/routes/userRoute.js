@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 const { User } = require('../model/userModel');
+const {UserForm}= require('../model/FormData')
 const { authentication } = require('../middelware/authentication');
 
 const userRoutes = express.Router();
@@ -56,14 +57,18 @@ userRoutes.post('/submit-form', async (req, res) => {
     try {
         const { userId, name, age, address, photo } = req.body;
 
-        // Update the user document with the collected data
-        const updatedUser = await User.findByIdAndUpdate(userId, { name, age, address, photo }, { new: true });
+        const newUser = new UserForm({
+            userId,
+            name,
+            age,
+            address,
+            photo,
+          });
 
-        if (!updatedUser) {
-            return res.status(404).json({ message: 'User not found' });
-        }
+          await newUser.save();
 
-        res.status(200).json({ message: 'Form submitted successfully', user: updatedUser });
+        res.status(201).json({ message: 'Form submitted successfully', user: newUser });
+  
     } catch (error) {
         console.error('Error submitting form:', error);
         res.status(500).json({ message: 'Internal server error' });

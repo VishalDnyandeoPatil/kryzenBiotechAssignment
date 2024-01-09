@@ -11,6 +11,7 @@ const Login = () => {
     try {
       const token = await login(username, password);
       localStorage.setItem('token', token);
+    //   console.log('Token stored:', token);
       window.alert('Login successful');
       setTimeout(() => {
         navigate('/form');

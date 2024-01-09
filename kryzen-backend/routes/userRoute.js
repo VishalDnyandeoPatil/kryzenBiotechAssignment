@@ -5,12 +5,17 @@ require('dotenv').config();
 const { User } = require('../model/userModel');
 const { authentication } = require('../middelware/authentication');
 
-const router = express.Router();
+const userRoutes = express.Router();
 
 // User registration route. 
-router.post('/registration', async (req, res) => {
+userRoutes.post('/register', async (req, res) => {
     try {
         const { username, password } = req.body;
+        
+        if (!username || !password) {
+            return res.status(400).json({ message: 'Username and password are required' });
+          }
+
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new User({ username, password: hashedPassword });
         await user.save();
@@ -22,7 +27,7 @@ router.post('/registration', async (req, res) => {
 });
 
 // User login route
-router.post('/login', async (req, res) => {
+userRoutes.post('/login', async (req, res) => {
     try {
       const { username, password } = req.body;
       const user = await User.findOne({ username });
@@ -46,5 +51,5 @@ router.post('/login', async (req, res) => {
   });
 
   module.exports = {
-    router
+    userRoutes
   }

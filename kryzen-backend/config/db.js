@@ -9,4 +9,3 @@ const connection = mongoose.connect(process.env.database_Url, { useNewUrlParser:
 module.exports={
     connection
 }
-

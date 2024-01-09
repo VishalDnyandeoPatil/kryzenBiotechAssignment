@@ -10,10 +10,10 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const token = await login(username, password);
-      // Store the token (e.g., in local storage or cookies) and handle success as needed
+      localStorage.setItem('token', token);
       window.alert('Login successful');
       setTimeout(() => {
-        navigate('/data-form');
+        navigate('/form');
       }, 1000);
     } catch (error) {
       console.error('Login error:', error);

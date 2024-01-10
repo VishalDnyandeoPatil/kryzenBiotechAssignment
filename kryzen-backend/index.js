@@ -15,6 +15,8 @@ app.get('/', (req, res) => {
   res.send('Hello from Kryzen Backend!');
 });
 
+app.use('/uploads', express.static('uploads'));
+ 
 app.use('/api/users',userRoutes);
 app.use('/api/form', formDataRoutes);
 

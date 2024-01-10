@@ -45,6 +45,7 @@ const FormDataDisplay = () => {
           console.error('Error downloading PDF:', error);
           // Handle PDF download error
         }
+        // window.open('http://localhost:4500/api/form/generate-pdf')
       };
 
       return (
@@ -60,6 +61,7 @@ const FormDataDisplay = () => {
           ) : (
             <p>Loading...</p>
           )}
+          <button onClick={handleDownloadPDF}>Download PDF</button>
         </div>
       );
 };
